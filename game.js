@@ -35,8 +35,6 @@ function moveLeft(){
 function moveRight(){
     console.log("DERECHA");
 }
-
-
 let canvasSize;
 let elementSize;
 
