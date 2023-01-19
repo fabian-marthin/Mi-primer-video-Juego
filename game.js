@@ -10,11 +10,15 @@ const playerPosition = {
     y: undefined
 }
 
+
 window.addEventListener("keydown", teclaPresionada);
 btnUp.addEventListener("click", moveUp);
 btnDown.addEventListener("click", moveDown);
 btnLeft.addEventListener("click", moveLeft);
 btnRight.addEventListener("click", moveRight);
+
+let canvasSize;
+let elementSize;
 
 function teclaPresionada(event){
     if(event.key == "ArrowUp") moveUp();
@@ -25,18 +29,28 @@ function teclaPresionada(event){
 
 function moveUp(){
     console.log("ARRIBA");
+    playerPosition.y -= canvasSize / 10;
+    movePlayer();
 }
 function moveDown(){
     console.log("ABAJO");
+    playerPosition.y += canvasSize / 10;
+    movePlayer();
 }
 function moveLeft(){
     console.log("IZQUIERDA");
+    playerPosition.x -= canvasSize / 10;
+    movePlayer();
 }
 function moveRight(){
     console.log("DERECHA");
+    playerPosition.x += canvasSize / 10;
+    movePlayer();
 }
-let canvasSize;
-let elementSize;
+
+function movePlayer(){
+    game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y);
+}
 
 window.addEventListener('load',setCanvasSize);
 window.addEventListener("resize", setCanvasSize);
@@ -45,7 +59,7 @@ function startGame(){
     game.font = elementsSize +'px Verdana';
     game.textAlign = 'end';
 
-    const map = maps[2];
+    const map = maps[0];
     const mapX = map.trim().split("\n");
     const mapXCols = mapX.map(x => x.trim().split(""));
 
