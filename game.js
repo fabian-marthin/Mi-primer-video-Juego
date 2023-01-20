@@ -48,8 +48,12 @@ function moveDown(){
 }
 function moveLeft(){
     console.log("IZQUIERDA");
+    if((playerPosition.y - elementsSize) < elementsSize){
+        console.log("OUT");
+    }else{
     playerPosition.x -= elementsSize;
     startGame();
+    }
 }
 function moveRight(){
     console.log("DERECHA");
