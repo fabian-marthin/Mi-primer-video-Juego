@@ -48,7 +48,7 @@ function moveDown(){
 }
 function moveLeft(){
     console.log("IZQUIERDA");
-    if((playerPosition.y - elementsSize) < elementsSize){
+    if((playerPosition.x - elementsSize) < elementsSize){
         console.log("OUT");
     }else{
     playerPosition.x -= elementsSize;
