@@ -28,42 +28,46 @@ function teclaPresionada(event){
     else if(event.key == "ArrowRight") moveRight();
 }
 
-function moveUp(){
-    console.log("ARRIBA");
-    if((playerPosition.y - elementsSize) < elementsSize){
-        console.log("OUT");
-    }else{
-    playerPosition.y -= elementsSize;
-    startGame();
+function moveUp() {
+    console.log('Me quiero mover hacia arriba');
+  
+    if ((playerPosition.y - elementsSize) < elementsSize -1) {
+      console.log('OUT');
+    } else {
+      playerPosition.y -= elementsSize;
+      startGame();
     }
-}
-function moveDown(){
-    console.log("ABAJO");
-    if((playerPosition.y - elementsSize) > (elementsSize * 8)){
-        console.log("OUT");
-    }else{
-    playerPosition.y += elementsSize;
-    startGame();
+  }
+  function moveLeft() {
+    console.log('Me quiero mover hacia izquierda');
+  
+    if ((playerPosition.x - elementsSize) <= elementsSize -1) {
+      console.log('OUT');
+    } else {
+      playerPosition.x -= elementsSize;
+      startGame();
     }
-}
-function moveLeft(){
-    console.log("IZQUIERDA");
-    if((playerPosition.x - elementsSize) < elementsSize){
-        console.log("OUT");
-    }else{
-    playerPosition.x -= elementsSize;
-    startGame();
+  }
+  function moveRight() {
+    console.log('Me quiero mover hacia derecha');
+  
+    if ((playerPosition.x + elementsSize) >= canvasSize +1) {
+      console.log('OUT');
+    } else {
+      playerPosition.x += elementsSize;
+      startGame();
     }
-}
-function moveRight(){
-    console.log("DERECHA");
-    if((playerPosition.x - elementsSize) > (elementsSize * 8)){
-        console.log("OUT");
-    }else{
-    playerPosition.x += elementsSize;
-    startGame();
+  }
+  function moveDown() {
+    console.log('Me quiero mover hacia abajo');
+    
+    if ((playerPosition.y + elementsSize) > canvasSize +1) {
+      console.log('OUT');
+    } else {
+      playerPosition.y += elementsSize;
+      startGame();
     }
-}
+  }
 
 window.addEventListener('load',setCanvasSize);
 window.addEventListener("resize", setCanvasSize);
