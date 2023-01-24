@@ -18,7 +18,7 @@ btnLeft.addEventListener("click", moveLeft);
 btnRight.addEventListener("click", moveRight);
 
 let canvasSize;
-let elementSize;
+let elementsSize;
 
 function teclaPresionada(event){
     if(event.key == "ArrowUp") moveUp();
@@ -29,23 +29,55 @@ function teclaPresionada(event){
 
 function moveUp(){
     console.log("ARRIBA");
-    playerPosition.y -= canvasSize / 10;
-    movePlayer();
+    playerPosition.y -= elementsSize;
+    startGame();
 }
 function moveDown(){
     console.log("ABAJO");
-    playerPosition.y += canvasSize / 10;
-    movePlayer();
+    playerPosition.y += elementsSize;
+    startGame();
 }
 function moveLeft(){
     console.log("IZQUIERDA");
-    playerPosition.x -= canvasSize / 10;
-    movePlayer();
+    playerPosition.x -= elementsSize;
+    startGame();
 }
 function moveRight(){
     console.log("DERECHA");
-    playerPosition.x += canvasSize / 10;
-    movePlayer();
+    playerPosition.x += elementsSize;
+    startGame();
+}
+
+function startGame(){
+    console.log({canvasSize,elementsSize});
+
+    game.font = elementsSize +'px Verdana';
+    game.textAlign = 'end';
+
+    const map = maps[0];
+    const mapX = map.trim().split("\n");
+    const mapXCols = mapX.map(x => x.trim().split(""));
+
+
+    game.clearRect(0,0,elementsSize,elementsSize);
+    mapXCols.forEach((row, rowI) => {
+        row.forEach((col, colI) => {
+          const emoji = emojis[col];
+          const posX = elementsSize * (colI + 1);
+          const posY = elementsSize * (rowI + 1);
+
+          if(col == "O"){
+            if(!playerPosition.x && !playerPosition.y){
+                playerPosition.x = posX;
+                playerPosition.y = posY;
+                console.log({playerPosition});
+            }
+          }
+          game.fillText(emoji, posX, posY);
+        });
+      });
+
+    movePlayer()
 }
 
 function movePlayer(){
@@ -54,35 +86,6 @@ function movePlayer(){
 
 window.addEventListener('load',setCanvasSize);
 window.addEventListener("resize", setCanvasSize);
-
-function startGame(){
-    game.font = elementsSize +'px Verdana';
-    game.textAlign = 'end';
-
-    const map = maps[0];
-    const mapX = map.trim().split("\n");
-    const mapXCols = mapX.map(x => x.trim().split(""));
-
-    mapXCols.forEach((row, rowI) => {
-        row.forEach((col, colI) => {
-          const emoji = emojis[col];
-          const posX = elementsSize * (colI + 1);
-          const posY = elementsSize * (rowI + 1);
-
-          if(col == "O"){
-            playerPosition.x = posX;
-            playerPosition.y = posY;
-            console.log({playerPosition});
-          }
-
-          game.fillText(emoji, posX, posY);
-        });
-      });
-
-    game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y);
-
-    console.log({canvasSize,elementsSize, mapX, mapXCols});
-}
 
 function setCanvasSize(){
     if(window.innerHeight>window.innerWidth){
@@ -98,3 +101,4 @@ function setCanvasSize(){
 
     startGame();
 }
+
