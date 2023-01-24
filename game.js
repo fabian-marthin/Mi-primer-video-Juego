@@ -6,8 +6,13 @@ const btnLeft = document.querySelector("#left");
 const btnRight = document.querySelector("#right");
 
 const playerPosition = {
-    x: undefined,
-    y: undefined
+  x: undefined,
+  y: undefined
+}
+
+const colisionPosition = {
+  x: undefined,
+  y: undefined
 }
 
 
@@ -109,6 +114,9 @@ function startGame(){
                 playerPosition.y = posY;
                 console.log({playerPosition});
             }
+          } else if(col == "I"){
+            colisionPosition.x = posX;
+            colisionPosition.y = posY;
           }
 
           game.fillText(emoji, posX, posY);
@@ -121,6 +129,11 @@ function startGame(){
 }
 
 function movePlayer(){
+    const colisionX = colisionPosition.x;
+    const colisionY = colisionPosition.y;
+    const colision = colisionX && colisionY;
+    if (colision){
+      console.log("subiste de nivel");
+    }
     game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y);
 }
-
