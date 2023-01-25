@@ -29,6 +29,7 @@ let level = 0;
 
 function teclaPresionada(event){
     elementsSize
+    elementsSize
     if(event.key == "ArrowUp") moveUp();
     else if(event.key == "ArrowDown") moveDown();
     else if(event.key == "ArrowLeft") moveLeft();
@@ -79,19 +80,8 @@ function moveUp() {
 window.addEventListener('load',setCanvasSize);
 window.addEventListener("resize", setCanvasSize);
 
-function setCanvasSize(){
-    if(window.innerHeight>window.innerWidth){
-        canvasSize=window.innerWidth*0.8;
-    }else{
-        canvasSize=window.innerHeight*0.8;
-    }
-
-    canvas.setAttribute('width',canvasSize);
-    canvas.setAttribute('height',canvasSize);
-
-    elementsSize = canvasSize / 10;
-
-    startGame();
+function movePlayer(){
+    game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y);
 }
 
 function startGame() {
