@@ -1,9 +1,24 @@
-const canvas=document.querySelector('#game');
-const game=canvas.getContext('2d');
+const canvas = document.querySelector('#game');
+const game = canvas.getContext('2d');
 const btnUp = document.querySelector("#up");
 const btnDown = document.querySelector("#down");
 const btnLeft = document.querySelector("#left");
 const btnRight = document.querySelector("#right");
+const spanLives = document.querySelector("#Lives");
+const spanTime = document.querySelector("#Time");
+
+const btnStart = document.querySelector("#start");
+btnStart.addEventListener("click", iniciarJuego);
+
+
+function iniciarJuego(){
+  startTime = Date.now();
+    timeInterval = setInterval(showTime,100)
+}
+
+function reiniciarJuego(){
+  location.reload()
+}
 
 const playerPosition = {
     x: undefined,
@@ -26,6 +41,11 @@ btnRight.addEventListener("click", moveRight);
 let canvasSize;
 let elementsSize = canvasSize / 10;
 let level = 0;
+let vidas = 3;
+
+let startTime;
+let timePlayer;
+let timeInterval;
 
 function teclaPresionada(event){
     elementsSize
@@ -36,7 +56,7 @@ function teclaPresionada(event){
     else if(event.key == "ArrowRight") moveRight();
 }
 
-function moveUp() {
+  function moveUp() {
     console.log('Me quiero mover hacia arriba');
   
     if ((playerPosition.y - elementsSize) < elementsSize -1) {
@@ -46,6 +66,7 @@ function moveUp() {
       startGame();
     }
   }
+
   function moveLeft() {
     console.log('Me quiero mover hacia izquierda');
   
@@ -56,6 +77,7 @@ function moveUp() {
       startGame();
     }
   }
+
   function moveRight() {
     console.log('Me quiero mover hacia derecha');
   
@@ -66,6 +88,7 @@ function moveUp() {
       startGame();
     }
   }
+
   function moveDown() {
     console.log('Me quiero mover hacia abajo');
     
@@ -77,8 +100,23 @@ function moveUp() {
     }
   }
 
-window.addEventListener('load',setCanvasSize);
+window.addEventListener('load', setCanvasSize);
 window.addEventListener("resize", setCanvasSize);
+
+function setCanvasSize(){
+  if(window.innerHeight>window.innerWidth){
+    canvasSize=window.innerWidth*0.8;
+}else{
+    canvasSize=window.innerHeight*0.8;
+}
+
+canvas.setAttribute('width',canvasSize);
+canvas.setAttribute('height',canvasSize);
+
+elementsSize = canvasSize / 10;
+
+startGame();
+}
 
 function movePlayer(){
     game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y);
@@ -93,6 +131,12 @@ function startGame() {
   if(!map){
     gameWin()
   }
+
+  if(!startTime){
+    
+  }
+
+  showLives();
 
   const mapRows = map.trim().split('\n');
   const mapRowCols = mapRows.map(row => row.trim().split(''));
@@ -147,7 +191,7 @@ function movePlayer() {
   });
 
   if(enemigoColision){
-    console.log("chocaste con un enemigo")
+    levelFail();
     }
   
   
@@ -160,6 +204,31 @@ function levelWin(){
 }
 
 function gameWin(){
-  console.log("terminas el juego");
-  return;
+  clearInterval(timeInterval);
+  reiniciarJuego();
+}
+
+function levelFail(){
+  vidas--;
+  
+  console.log(vidas);
+  if (vidas <= 0){
+    level = 0;
+    vidas = 3
+    startTime = undefined;
+  }
+  playerPosition.x = undefined;
+  playerPosition.y = undefined;
+  startGame();
+}
+
+function showLives(){
+  const hardsArray = Array(vidas).fill(emojis["HEART"]);
+  spanLives.innerHTML = "";
+  hardsArray.forEach(corazon => spanLives.append(corazon));
+  
+}
+function showTime(){
+spanTime.innerHTML = (Date.now() - startTime)/1000 + "Segundos";
+ 
 }
