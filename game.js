@@ -21,8 +21,8 @@ function reiniciarJuego(){
 }
 
 const playerPosition = {
-    x: undefined,
-    y: undefined
+  x: undefined,
+  y: undefined
 }
 
 const giftPosition = {
