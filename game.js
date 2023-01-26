@@ -7,6 +7,11 @@ const btnRight = document.querySelector("#right");
 const spanLives = document.querySelector("#Lives");
 const spanTime = document.querySelector("#Time");
 
+const nombreDelJugador = document.querySelector("#nombreDelJUgador");
+
+const btnReiniciar = document.querySelector("#reiniciar");
+btnReiniciar.addEventListener("click", reiniciarJuego);
+
 const btnStart = document.querySelector("#start");
 btnStart.addEventListener("click", iniciarJuego);
 
@@ -126,7 +131,9 @@ function startGame() {
   game.font = elementsSize + 'px Verdana';
   game.textAlign = 'end';
 
-  let map = maps[level];
+  const map = maps[level];
+  console.log(typeof map.trim());
+  console.log(map.trim())
 
   if(!map){
     gameWin()
@@ -136,9 +143,8 @@ function startGame() {
     
   }
 
-  showLives();
-
   const mapRows = map.trim().split('\n');
+  console.log(mapRows);
   const mapRowCols = mapRows.map(row => row.trim().split(''));
   
   posicionesEnemigos = [];
@@ -171,7 +177,7 @@ function startGame() {
       game.fillText(emoji, posX, posY);
     });
   });
-
+  showLives();
   movePlayer();
 }
 
@@ -205,7 +211,22 @@ function levelWin(){
 
 function gameWin(){
   clearInterval(timeInterval);
-  reiniciarJuego();
+
+  const recordTime = localStorage.getItem('record_time');
+  const playerTime = Date.now() - startTime;
+  if (recordTime) {
+    if (recordTime >= playerTime) {
+      localStorage.setItem('record_time', nombreDelJugador.value + " " + playerTime);
+      console.log("SUPERASTE EL RECORD");
+    } else {
+      console.log ("lo siento, no superaste el records :(");
+    }
+  } else {
+    localStorage.setItem('record_time', nombreDelJugador.value + " " + playerTime);
+    console.log(playerTime);
+    console.log("juegas por primera vez, buena suerte");
+    
+  }
 }
 
 function levelFail(){
