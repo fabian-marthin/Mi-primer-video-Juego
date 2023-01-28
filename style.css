@@ -44,6 +44,7 @@ body {
   
   .messages {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     margin: 0 auto;
     width: 80%;
@@ -63,6 +64,10 @@ body {
   }
 
   #input {
+    display: flex;
+    justify-content: center;
+  }
+  #btns{
     display: flex;
     justify-content: center;
   }
