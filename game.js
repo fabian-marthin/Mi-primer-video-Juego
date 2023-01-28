@@ -17,7 +17,6 @@ btnReiniciar.addEventListener("click", reiniciarJuego);
 const btnStart = document.querySelector("#start");
 btnStart.addEventListener("click", iniciarJuego);
 
-
 function iniciarJuego(){
   startTime = Date.now();
   timeInterval = setInterval(showTime,100)
@@ -183,7 +182,7 @@ function movePlayer() {
     levelWin()
   }
 
-  const enemigoColision = posicionesEnemigos.find(enemy => {
+    const enemigoColision = posicionesEnemigos.find(enemy => {
     const enemigoColisionX = enemy.x.toFixed(3) == playerPosition.x.toFixed(3);
     const enemigoColisionY = enemy.y.toFixed(3) == playerPosition.y.toFixed(3);
     return enemigoColisionX && enemigoColisionY;
@@ -247,8 +246,8 @@ function showLives(){
   hardsArray.forEach(corazon => spanLives.append(corazon));
 }
 function showTime(){
-spanTime.innerHTML = Math.floor((Date.now() - startTime)/1000) + " Segundos";
+spanTime.innerHTML = "⏰" + Math.floor((Date.now() - startTime)/1000) + " Segundos";
 }
 function showRecords(){
-  spanRecord.innerHTML = Math.floor(localStorage.getItem("record_time")/1000) + " Segundos";
+  spanRecord.innerHTML = "🏁" + Math.floor(localStorage.getItem("record_time")/1000) + " Segundos";
 }
